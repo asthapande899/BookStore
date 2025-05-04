@@ -1,0 +1,26 @@
+<!-- Add this inside your book loop -->
+<div class="book">
+    <h2>{{ book.title }}</h2>
+    <p>{{ book.description }}</p>
+    <p class="price">${{ book.price }}</p>
+    <a href="{% url 'add_to_cart' book.id %}" style="
+        display: inline-block;
+        padding: 5px 10px;
+        background-color: #28a745;
+        color: white;
+        text-decoration: none;
+        border-radius: 3px;
+    ">Add to Cart</a>
+</div>
+
+<!-- Add cart link somewhere on the page -->
+<div style="margin-top: 20px;">
+    <a href="{% url 'view_cart' %}" style="
+        display: inline-block;
+        padding: 10px 15px;
+        background-color: #17a2b8;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+    ">View Cart ({{ cart_items|length }})</a>
+</div>

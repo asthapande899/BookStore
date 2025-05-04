@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Shopping Cart</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
+        .total { font-weight: bold; font-size: 1.2em; }
+        .btn { 
+            display: inline-block; 
+            padding: 5px 10px; 
+            background-color: #dc3545; 
+            color: white; 
+            text-decoration: none; 
+            border-radius: 3px; 
+        }
+    </style>
+</head>
+<body>
+    <h1>Your Shopping Cart</h1>
+    
+    {% if cart %}
+    <table>
+        <thead>
+            <tr>
+                <th>Book</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book_id, item in cart.items %}
+            <tr>
+                <td>{{ item.title }}</td>
+                <td>${{ item.price }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>${{ "%.2f"|format(item.quantity * item.price|float) }}</td>
+                <td><a href="{% url 'remove_from_cart' book_id %}" class="btn">Remove</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <div class="total">Total: ${{ "%.2f"|format(total) }}</div>
+    {% else %}
+    <p>Your cart is empty.</p>
+    {% endif %}
+    
+    <a href="{% url 'book_list' %}">← Continue Shopping</a>
+</body>
+</html>
